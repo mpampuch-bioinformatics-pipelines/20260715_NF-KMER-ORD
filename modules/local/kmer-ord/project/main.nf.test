@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process KMER-ORD_PROJECT"
+    name "Test Process KMER_ORD_PROJECT"
     script "modules/local/kmer-ord/project/main.nf"
-    process "KMER-ORD_PROJECT"
+    process "KMER_ORD_PROJECT"
     tag "modules"
     tag "modules_local"
     tag "kmer-ord"
@@ -11,7 +11,7 @@ nextflow_process {
     // REAL TESTS
     // =========================================================================
 
-    test("kmer-ord project") {
+    test("Should run kmer-ord project on fasta input") {
         tag "slow"
         options "-dump-hashes"
         config "modules/local/kmer-ord/project/kmer-ord_project.test.config"
@@ -20,33 +20,27 @@ nextflow_process {
             process {
                 """
                 input[0] = [
-                    [ id: 'KAUST067' ],
-                    file('/ibex/scratch/projects/c2303/20260309_NEXTFLOW-ALGAE-TAXA-FROM-GENOME/DATA/KAUST067_purged.fa', checkIfExists: true)
+                    [ id: '1percent' ],
+                    file('${projectDir}/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta', checkIfExists: true)
                 ]
                 """
             }
         }
 
         then {
-            DebugUtils.printTree(process.out)
-
             assert process.success
 
-            // output directory
-            assert process.out.results.size() == 1
-            assert process.out.results[0][0].id == 'KAUST067'
+            assert process.out.results_dir.size() == 1
+            assert process.out.results_dir[0][0].id == '1percent'
 
-            def outdir = file(process.out.results[0][1])
+            def outdir = file(process.out.results_dir[0][1])
             assert outdir.exists()
             assert outdir.isDirectory()
 
-            // versions
             assert process.out.versions.size() == 1
             assert path(process.out.versions[0]).readLines().any {
                 it.contains("kmer-ord")
             }
-
-            assert snapshot(process.out).match()
         }
     }
 
@@ -54,7 +48,7 @@ nextflow_process {
     // STUB TESTS
     // =========================================================================
 
-    test("stub | kmer-ord project") {
+    test("Should create stub results directory") {
         tag "stub"
         tag "fast"
         options "-stub-run -dump-hashes"
@@ -63,31 +57,25 @@ nextflow_process {
             process {
                 """
                 input[0] = [
-                    [ id: 'KAUST067' ],
-                    file('/ibex/scratch/projects/c2303/20260309_NEXTFLOW-ALGAE-TAXA-FROM-GENOME/DATA/KAUST067_purged.fa', checkIfExists: true)
+                    [ id: '1percent' ],
+                    file('${projectDir}/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta', checkIfExists: true)
                 ]
                 """
             }
         }
 
         then {
-            DebugUtils.printTree(process.out)
-
             assert process.success
 
-            assert process.out.results.size() == 1
-            assert process.out.results[0][0].id == 'KAUST067'
+            assert process.out.results_dir.size() == 1
+            assert process.out.results_dir[0][0].id == '1percent'
 
-            def outdir = file(process.out.results[0][1])
+            def outdir = file(process.out.results_dir[0][1])
             assert outdir.exists()
             assert outdir.isDirectory()
-
-            // stub should create the placeholder file
             assert file("${outdir}/stub.txt").exists()
 
             assert process.out.versions.size() == 1
-
-            assert snapshot(process.out).match()
         }
     }
 

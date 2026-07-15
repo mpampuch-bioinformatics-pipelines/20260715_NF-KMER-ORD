@@ -3,6 +3,7 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { KMER_ORD_PROJECT       } from '../modules/local/kmer-ord/project/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -18,11 +19,17 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pipe
 workflow PIPELINE {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet // channel: [ val(meta), path(reads) ]
     main:
 
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
+
+    //
+    // MODULE: Run kmer-ord project on each sample
+    //
+    KMER_ORD_PROJECT(ch_samplesheet)
+    ch_versions = ch_versions.mix(KMER_ORD_PROJECT.out.versions)
 
     //
     // Collate and save software versions
