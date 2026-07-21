@@ -1,9 +1,10 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/pipeline/master/assets/schema_input.json",
-    "title": "nf-core/pipeline pipeline - params.input schema",
-    "description": "Schema for the file provided with params.input",
+    "title": "nf-core/pipeline YAML samplesheet",
+    "description": "Per-sample inputs and kmer-ord project settings.",
     "type": "array",
+    "minItems": 1,
     "items": {
         "type": "object",
         "properties": {
@@ -11,16 +12,99 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample id must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": "id"
             },
             "reads": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.(fa|fasta|fna)(\\.gz)?$",
-                "errorMessage": "Reads file must be provided, cannot contain spaces, and must end in .fa, .fasta, .fna, or gzipped variants"
+                "pattern": "^\\S+\\.(fa|fasta|fna|fq|fastq)(\\.gz)?$",
+                "errorMessage": "Reads file must be provided, cannot contain spaces, and must end in .fa, .fasta, .fna, .fq, .fastq, or gzipped variants"
+            },
+            "kmers": {
+                "type": "array",
+                "description": "K-mer sizes to run independently for this sample.",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "meta": "kmers"
+            },
+            "tiara": {
+                "type": "boolean",
+                "default": false,
+                "meta": "tiara"
+            },
+            "dr": {
+                "type": "array",
+                "description": "Dimensionality-reduction methods to run.",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                    "type": "string",
+                    "enum": [
+                        "umap",
+                        "tsne",
+                        "trimap",
+                        "pacmap",
+                        "localmap",
+                        "pca",
+                        "sparse_pca",
+                        "kernel_pca",
+                        "lle"
+                    ]
+                },
+                "meta": "dr"
+            },
+            "scale": {
+                "type": "string",
+                "default": "auto",
+                "meta": "scale"
+            },
+            "norm": {
+                "type": "string",
+                "default": "clr",
+                "meta": "norm"
+            },
+            "dims": {
+                "type": "integer",
+                "minimum": 1,
+                "default": 2,
+                "meta": "dims"
+            },
+            "pca_pre": {
+                "type": "boolean",
+                "default": false,
+                "meta": "pca_pre"
+            },
+            "keep_pcs": {
+                "type": ["integer", "null"],
+                "minimum": 1,
+                "default": null,
+                "meta": "keep_pcs"
+            },
+            "keep_variance": {
+                "type": ["number", "null"],
+                "exclusiveMinimum": 0,
+                "maximum": 1,
+                "default": null,
+                "meta": "keep_variance"
+            },
+            "screen_params": {
+                "type": "boolean",
+                "default": false,
+                "meta": "screen_params"
+            },
+            "threads": {
+                "type": ["integer", "null"],
+                "minimum": 1,
+                "default": null,
+                "meta": "threads"
             }
         },
-        "required": ["id", "reads"]
-    }
+        "required": ["id", "reads", "kmers", "dr"]
+    },
+    "uniqueEntries": ["id"]
 }

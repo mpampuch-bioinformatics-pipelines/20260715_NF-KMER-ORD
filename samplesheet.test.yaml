@@ -1,0 +1,24 @@
+- id: 1percent
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta
+  kmers: [6, 10, 11]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - sparse_pca
+    - kernel_pca
+    - lle
+
+- id: 5percent
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.5percent.fasta
+  kmers: [8, 12]
+  tiara: true
+  dr:
+    - pca
+    - kernel_pca
+    - sparse_pca
+    - lle

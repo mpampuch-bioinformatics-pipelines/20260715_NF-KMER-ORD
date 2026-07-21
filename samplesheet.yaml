@@ -1,0 +1,12 @@
+- id: KAUST067
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/67_Scenedesmussp/67_Scenedesmussp.hifi_reads.fastq
+  kmers: [4,5,6]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle

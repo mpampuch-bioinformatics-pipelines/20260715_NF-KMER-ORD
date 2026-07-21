@@ -1,0 +1,35 @@
+samples:
+  - id: KAUST67
+    reads: /path/sample67.fastq.gz
+    kmers: [6, 10, 11]
+    tiara: true
+    dr:
+      - umap
+      - tsne
+      - trimap
+      - pacmap
+      - localmap
+      - pca
+      - sparse_pca
+      - kernel_pca
+      - lle
+    scale: auto # This should be default in the schema and optional in the samplesheet
+    norm: clr # This should be default in the schema and optional in the samplesheet
+    dims: 2 # This should be default in the schema and optional in the samplesheet
+    pca_pre: false # This should be default in the schema and optional in the samplesheet
+    keep_pcs: None # This should be default in the schema and optional in the samplesheet. Otherwise should be an integer.
+    # keep_variance: 0.95 # This should be default in the schema and optional in the samplesheet. Otherwise should be a float between 0 and 1.
+      #  if keep_pcs is None and keep_variance is None:
+        # raise ValueError("Either keep_pcs or keep_variance must be specified.")
+    screen_params: false # This should be default in the schema and optional in the samplesheet.
+
+    
+  - id: KAUST68
+    reads: /path/sample68.fastq.gz
+    kmers: [8, 12]
+    threads: 4
+    dr:
+      - pca
+      - kernel_pca
+      - sparse_pca
+      - lle

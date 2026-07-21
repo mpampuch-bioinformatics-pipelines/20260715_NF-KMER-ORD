@@ -1,0 +1,155 @@
+- id: KAUST061_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST061_mito
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST061/bins/mito.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST061_plastid
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST061/bins/plastid.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST064_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/64_Chlamydomonassp/64_Chlamydomonassp.hifi_reads.fastq
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST064_mito
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST064/10-64/bins/mito.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST064_plastid
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST064/10-64/bins/plastid.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST065_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/65_Phormidesmismolle/65_Phormidesmismolle.hifi_reads.fastq
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST065_mito
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST065/bins/mito.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST065_plastid
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST065/bins/plastid.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST067_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/67_Scenedesmussp/67_Scenedesmussp.hifi_reads.fastq
+  kmers: [4,5,6]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST070_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/70_Fistuliferasaprophila/70_Fistuliferasaprophila.hifi_reads.fastq
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
+
+- id: KAUST070_plastid
+  reads: /ibex/project/c2303/20260115_assemble-wadi-zee-strains/20260720_Assembly-Wadi-Zee-Organelles/Data_share_with_FDB/KAUST070/bins/plastid.fasta
+  kmers: [4,5,6,7]
+  tiara: true
+  dr:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+    - lle
