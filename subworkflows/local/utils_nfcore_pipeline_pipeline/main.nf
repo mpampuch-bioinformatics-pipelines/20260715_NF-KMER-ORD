@@ -79,16 +79,17 @@ workflow PIPELINE_INITIALISATION {
     //
     Channel
         .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
-        .flatMap { meta, reads ->
+        .flatMap { meta, reads, inject_tsv ->
             if (meta.keep_pcs != null && meta.keep_variance != null) {
                 error("Samplesheet error [${meta.id}]: keep_pcs and keep_variance are mutually exclusive.")
             }
 
             // Each k-mer is an independent run; remove the original list so task
             // metadata describes only the concrete run represented by the tuple.
+            // inject_tsv is optional and resolves to [] when absent (nf-schema).
             meta.kmers.collect { kmer ->
                 def run_meta = meta.findAll { key, _value -> key != "kmers" } + [kmer: kmer]
-                [run_meta, reads]
+                [run_meta, reads, inject_tsv]
             }
         }
         .set { ch_samplesheet }

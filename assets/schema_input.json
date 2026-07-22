@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/pipeline/master/assets/schema_input.json",
     "title": "nf-core/pipeline YAML samplesheet",
-    "description": "Per-sample inputs and kmer-ord project settings.",
+    "description": "Per-sample inputs and kmer-ord project/cluster/visualise settings.",
     "type": "array",
     "minItems": 1,
     "items": {
@@ -20,6 +20,13 @@
                 "exists": true,
                 "pattern": "^\\S+\\.(fa|fasta|fna|fq|fastq)(\\.gz)?$",
                 "errorMessage": "Reads file must be provided, cannot contain spaces, and must end in .fa, .fasta, .fna, .fq, .fastq, or gzipped variants"
+            },
+            "inject_tsv": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.(tsv|txt)$",
+                "errorMessage": "Optional inject file must be a .tsv/.txt path without spaces whose first column is 'sequence_id'"
             },
             "kmers": {
                 "type": "array",
@@ -39,7 +46,7 @@
             },
             "dr": {
                 "type": "array",
-                "description": "Dimensionality-reduction methods to run.",
+                "description": "Dimensionality-reduction methods to run (shared by project and cluster).",
                 "minItems": 1,
                 "uniqueItems": true,
                 "items": {
@@ -70,9 +77,44 @@
             },
             "dims": {
                 "type": "integer",
+                "description": "Low-dimensional (2D/3D) projection size used by kmer-ord project.",
                 "minimum": 1,
                 "default": 2,
                 "meta": "dims"
+            },
+            "cluster_dims": {
+                "type": "integer",
+                "description": "High-dimensional embedding size used by kmer-ord cluster.",
+                "minimum": 1,
+                "default": 15,
+                "meta": "cluster_dims"
+            },
+            "cluster": {
+                "type": "array",
+                "description": "Clustering methods to run in kmer-ord cluster.",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                    "type": "string",
+                    "enum": ["leiden", "hdbscan", "dbscan"]
+                },
+                "default": ["hdbscan"],
+                "meta": "cluster"
+            },
+            "leiden_sweep": {
+                "type": "boolean",
+                "default": false,
+                "meta": "leiden_sweep"
+            },
+            "hdbscan_sweep": {
+                "type": "boolean",
+                "default": false,
+                "meta": "hdbscan_sweep"
+            },
+            "dbscan_sweep": {
+                "type": "boolean",
+                "default": false,
+                "meta": "dbscan_sweep"
             },
             "pca_pre": {
                 "type": "boolean",
@@ -96,6 +138,32 @@
                 "type": "boolean",
                 "default": false,
                 "meta": "screen_params"
+            },
+            "max_categories": {
+                "type": "integer",
+                "description": "Max number of categories for categorical feature plots in kmer-ord visualise.",
+                "minimum": 1,
+                "default": 10,
+                "meta": "max_categories"
+            },
+            "embeddings": {
+                "type": "boolean",
+                "description": "Generate embedding plots in kmer-ord visualise.",
+                "default": true,
+                "meta": "embeddings"
+            },
+            "embedding_mode": {
+                "type": "string",
+                "description": "Embedding plot mode for kmer-ord visualise.",
+                "enum": ["density", "categorical", "continuous", "all"],
+                "default": "all",
+                "meta": "embedding_mode"
+            },
+            "features": {
+                "type": "boolean",
+                "description": "Generate feature plots in kmer-ord visualise.",
+                "default": true,
+                "meta": "features"
             },
             "threads": {
                 "type": ["integer", "null"],

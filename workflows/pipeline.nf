@@ -4,6 +4,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { KMER_ORD_PROJECT       } from '../modules/local/kmer-ord/project/main'
+include { KMER_ORD_CLUSTER       } from '../modules/local/kmer-ord/cluster/main'
+include { KMER_ORD_INJECT        } from '../modules/local/kmer-ord/inject/main'
+include { KMER_ORD_VISUALISE     } from '../modules/local/kmer-ord/visualise/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -19,17 +22,51 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pipe
 workflow PIPELINE {
 
     take:
-    ch_samplesheet // channel: [ val(meta), path(reads) ]
+    ch_samplesheet // channel: [ val(meta), path(reads), path(inject_tsv) ]
     main:
 
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
+    // reads-only view for the modules that consume the fasta/fastq input
+    ch_reads = ch_samplesheet.map { meta, reads, _inject_tsv -> [meta, reads] }
+
     //
-    // MODULE: Run kmer-ord project on each sample
+    // MODULE: Projection pipeline -> builds kmerord.sqlite (stats, k-mer counts, 2D/3D embedding)
     //
-    KMER_ORD_PROJECT(ch_samplesheet)
+    KMER_ORD_PROJECT(ch_reads)
     ch_versions = ch_versions.mix(KMER_ORD_PROJECT.out.versions)
+
+    //
+    // MODULE: Cluster inference pipeline -> integrates high-D embedding + cluster assignments
+    // into the same database. Joined on meta so each run's reads meet their own project DB.
+    //
+    ch_cluster_input = ch_reads.join(KMER_ORD_PROJECT.out.db)
+    KMER_ORD_CLUSTER(ch_cluster_input)
+    ch_versions = ch_versions.mix(KMER_ORD_CLUSTER.out.versions)
+
+    //
+    // MODULE: Optionally inject extra feature columns from a per-sample TSV before visualising.
+    // Samples without an inject_tsv (value []) bypass KMER_ORD_INJECT untouched.
+    //
+    ch_db_with_inject = KMER_ORD_CLUSTER.out.db
+        .join(ch_samplesheet.map { meta, _reads, inject_tsv -> [meta, inject_tsv] })
+        .branch { _meta, _db, inject_tsv ->
+            inject: inject_tsv
+            passthrough: true
+        }
+
+    KMER_ORD_INJECT(ch_db_with_inject.inject)
+    ch_versions = ch_versions.mix(KMER_ORD_INJECT.out.versions)
+
+    ch_db_for_visualise = KMER_ORD_INJECT.out.db
+        .mix(ch_db_with_inject.passthrough.map { meta, db, _inject_tsv -> [meta, db] })
+
+    //
+    // MODULE: Visualise database tables (feature distributions + embedding plots)
+    //
+    KMER_ORD_VISUALISE(ch_db_for_visualise)
+    ch_versions = ch_versions.mix(KMER_ORD_VISUALISE.out.versions)
 
     //
     // Collate and save software versions

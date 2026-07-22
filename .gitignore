@@ -462,3 +462,11 @@ element/
 node/
 edge/
 vertex/
+
+# =============================================================================
+# PIPELINE SOURCE OVERRIDES
+# =============================================================================
+# The broad `cluster/` rule above (meant for compute-cluster scratch dirs) also
+# matched the kmer-ord cluster module source. Re-include it so it is tracked.
+!modules/local/kmer-ord/cluster/
+!modules/local/kmer-ord/cluster/**

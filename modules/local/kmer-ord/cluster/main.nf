@@ -1,4 +1,4 @@
-process KMER_ORD_PROJECT {
+process KMER_ORD_CLUSTER {
 
   tag "${meta.id}_k=${meta.kmer}"
   label 'process_high'
@@ -11,7 +11,9 @@ process KMER_ORD_PROJECT {
     : 'docker://PLACEHOLDER_DOCKER_IMAGE'}"
 
   input:
-  tuple val(meta), path(input)
+  // db is the kmerord.sqlite produced by KMER_ORD_PROJECT; cluster assignments
+  // and the high-dimensional embedding are integrated back into this database.
+  tuple val(meta), path(input), path(db)
 
   output:
   tuple val(meta), path("results"), emit: results_dir
@@ -23,18 +25,38 @@ process KMER_ORD_PROJECT {
 
   script:
   def args = task.ext.args ?: ""
+
   if (meta.threads != null && meta.threads > task.cpus) {
-    error("Sample ${meta.id} requests ${meta.threads} threads, but KMER_ORD_PROJECT was allocated ${task.cpus} CPUs.")
+    error("Sample ${meta.id} requests ${meta.threads} threads, but KMER_ORD_CLUSTER was allocated ${task.cpus} CPUs.")
   }
+
   def threads = meta.threads ?: task.cpus
-  def sample_args = [meta.tiara ? "--tiara" : null, meta.dr ? "--dr ${meta.dr.join(',')}" : null, "--scale ${meta.scale}", "--norm ${meta.norm}", "--dims ${meta.dims}", meta.pca_pre ? "--pca-pre" : null, meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null, meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null, meta.screen_params ? "--screen-params" : null].findAll { argument -> argument }.join(" ")
+
+  // cluster_dims is the high-dimensional embedding size used for clustering and
+  // is intentionally distinct from meta.dims (the 2D/3D projection used by
+  // KMER_ORD_PROJECT), so a sample can carry both without collision.
+  def sample_args = [
+      "--dims ${meta.cluster_dims}",
+      meta.dr ? "--dr ${meta.dr.join(',')}" : null,
+      "--scale ${meta.scale}",
+      "--norm ${meta.norm}",
+      meta.pca_pre ? "--pca-pre" : null,
+      meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null,
+      meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null,
+      meta.screen_params ? "--screen-params" : null,
+      meta.cluster ? "--cluster ${meta.cluster.join(',')}" : null,
+      meta.leiden_sweep ? "--leiden-sweep" : null,
+      meta.hdbscan_sweep ? "--hdbscan-sweep" : null,
+      meta.dbscan_sweep ? "--dbscan-sweep" : null,
+      "--db ${db}"
+  ].findAll { argument -> argument }.join(" ")
 
   """
     export HOME=\$PWD
 
     mkdir -p results
 
-    kmer-ord project \\
+    kmer-ord cluster \\
         --input ${input} \\
         --output results \\
         --threads ${threads} \\

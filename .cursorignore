@@ -421,3 +421,11 @@ LICENSE
 
 # nf-test files
 .nf-test
+# The broad `cluster/` rule above also hid the kmer-ord cluster module source.
+# Re-include it so Cursor tools can read and edit it.
+!modules/local/kmer-ord/cluster/
+!modules/local/kmer-ord/cluster/**
+
+# Allow editing pipeline module configuration (the broad `conf/` rule hid it).
+!conf/
+!conf/modules.config
