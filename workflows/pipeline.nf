@@ -7,11 +7,7 @@ include { KMER_ORD_PROJECT       } from '../modules/local/kmer-ord/project/main'
 include { KMER_ORD_CLUSTER       } from '../modules/local/kmer-ord/cluster/main'
 include { KMER_ORD_INJECT        } from '../modules/local/kmer-ord/inject/main'
 include { KMER_ORD_VISUALISE     } from '../modules/local/kmer-ord/visualise/main'
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_pipeline_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,43 +22,68 @@ workflow PIPELINE {
     main:
 
     ch_versions = channel.empty()
-    ch_multiqc_files = channel.empty()
 
     // reads-only view for the modules that consume the fasta/fastq input
     ch_reads = ch_samplesheet.map { meta, reads, _inject_tsv -> [meta, reads] }
 
+    // Filter reads for projection workflow based on params.run_projection and sample meta.dr_project
+    ch_project_reads = ch_reads.filter { meta, _reads ->
+        (params.run_projection == null || params.run_projection) && meta.dr_project
+    }
+
+    // Filter reads for clustering workflow based on params.run_clustering and sample meta.dr_cluster
+    ch_cluster_reads = ch_reads.filter { meta, _reads ->
+        (params.run_clustering == null || params.run_clustering) && meta.dr_cluster
+    }
+
     //
-    // MODULE: Projection and clustering run in parallel from the same reads.
-    // Cluster assignment TSVs are injected into the project DB before visualise.
+    // MODULE: Projection (optional)
     //
-    KMER_ORD_PROJECT(ch_reads)
+    KMER_ORD_PROJECT(ch_project_reads)
     ch_versions = ch_versions.mix(KMER_ORD_PROJECT.out.versions)
 
-    KMER_ORD_CLUSTER(ch_reads)
+    //
+    // MODULE: Clustering (optional)
+    //
+    KMER_ORD_CLUSTER(ch_cluster_reads)
     ch_versions = ch_versions.mix(KMER_ORD_CLUSTER.out.versions)
 
     //
-    // MODULE: Inject cluster assignment columns (and optional samplesheet inject_tsv)
+    // MODULE: Inject cluster assignment columns (and/or optional samplesheet inject_tsv)
     // into each sample's project database features table.
     //
     ch_inject_input = KMER_ORD_PROJECT.out.db
-        .join(KMER_ORD_CLUSTER.out.cluster_tsvs)
+        .join(KMER_ORD_CLUSTER.out.cluster_tsvs, remainder: true)
         .join(ch_samplesheet.map { meta, _reads, inject_tsv -> [meta, inject_tsv] })
         .map { meta, db, cluster_tsvs, inject_tsv ->
-            def tsvs = cluster_tsvs instanceof List ? cluster_tsvs.collect() : [cluster_tsvs]
+            def tsvs = []
+            if (cluster_tsvs) {
+                tsvs += (cluster_tsvs instanceof List ? cluster_tsvs : [cluster_tsvs])
+            }
             if (inject_tsv) {
-                tsvs = tsvs + [inject_tsv]
+                tsvs += (inject_tsv instanceof List ? inject_tsv : [inject_tsv])
             }
             [meta, db, tsvs]
         }
+        .branch { meta, db, tsvs ->
+            inject: db != null && !tsvs.isEmpty()
+            no_inject: db != null && tsvs.isEmpty()
+            skip: db == null
+        }
 
-    KMER_ORD_INJECT(ch_inject_input)
+    KMER_ORD_INJECT(ch_inject_input.inject)
     ch_versions = ch_versions.mix(KMER_ORD_INJECT.out.versions)
+
+    // Combine injected databases and non-injected databases for visualization
+    ch_vis_db = KMER_ORD_INJECT.out.db.mix(
+        ch_inject_input.no_inject.map { meta, db, _tsvs -> [meta, db] }
+    )
 
     //
     // MODULE: Visualise database tables (feature distributions + embedding plots)
+    // Visualization is executed automatically whenever projection workflow is run.
     //
-    KMER_ORD_VISUALISE(KMER_ORD_INJECT.out.db)
+    KMER_ORD_VISUALISE(ch_vis_db)
     ch_versions = ch_versions.mix(KMER_ORD_VISUALISE.out.versions)
 
     //
@@ -94,49 +115,9 @@ workflow PIPELINE {
             newLine: true
         ).set { ch_collated_versions }
 
-
-    //
-    // MODULE: MultiQC
-    //
-    ch_multiqc_config        = channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
-
-    summary_params      = paramsSummaryMap(
-        workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
-        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description))
-
-    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_methods_description.collectFile(
-            name: 'methods_description_mqc.yaml',
-            sort: true
-        )
-    )
-
-    MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
-    )
-
-    emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    emit:
+    multiqc_report = channel.empty() // MULTIQC removed
+    versions       = ch_versions     // channel: [ path(versions.yml) ]
 
 }
 

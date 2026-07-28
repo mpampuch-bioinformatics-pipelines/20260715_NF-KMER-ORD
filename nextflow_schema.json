@@ -40,6 +40,18 @@
           "type": "string",
           "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
           "fa_icon": "fas fa-file-signature"
+        },
+        "run_projection": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run the dimensionality reduction projection workflow (KMER_ORD_PROJECT).",
+          "fa_icon": "fas fa-project-diagram"
+        },
+        "run_clustering": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run the k-mer clustering workflow (KMER_ORD_CLUSTER).",
+          "fa_icon": "fas fa-object-group"
         }
       }
     },

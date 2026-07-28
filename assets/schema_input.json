@@ -182,7 +182,7 @@
                 "meta": "threads"
             }
         },
-        "required": ["id", "reads", "kmers", "dr_project"]
+        "required": ["id", "reads", "kmers"]
     },
     "uniqueEntries": ["id"]
 }
