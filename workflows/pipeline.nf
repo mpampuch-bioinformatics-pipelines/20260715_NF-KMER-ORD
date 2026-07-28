@@ -116,8 +116,12 @@ workflow PIPELINE {
         ).set { ch_collated_versions }
 
     emit:
-    multiqc_report = channel.empty() // MULTIQC removed
-    versions       = ch_versions     // channel: [ path(versions.yml) ]
+    multiqc_report    = channel.empty() // MULTIQC removed
+    versions          = ch_versions     // channel: [ path(versions.yml) ]
+    project_results   = KMER_ORD_PROJECT.out.results_dir
+    cluster_results   = KMER_ORD_CLUSTER.out.results_dir
+    inject_db         = KMER_ORD_INJECT.out.db
+    visualise_results = KMER_ORD_VISUALISE.out.results_dir
 
 }
 

@@ -39,7 +39,11 @@ workflow NFCORE_PIPELINE {
         samplesheet
     )
     emit:
-    multiqc_report = PIPELINE.out.multiqc_report // channel: /path/to/multiqc_report.html
+    multiqc_report    = PIPELINE.out.multiqc_report
+    project_results   = PIPELINE.out.project_results
+    cluster_results   = PIPELINE.out.cluster_results
+    inject_db         = PIPELINE.out.inject_db
+    visualise_results = PIPELINE.out.visualise_results
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,6 +86,30 @@ workflow {
         params.monochrome_logs,
         NFCORE_PIPELINE.out.multiqc_report
     )
+
+    publish:
+    kmer_ord_project   = NFCORE_PIPELINE.out.project_results
+    kmer_ord_cluster   = NFCORE_PIPELINE.out.cluster_results
+    kmer_ord_inject    = NFCORE_PIPELINE.out.inject_db
+    kmer_ord_visualise = NFCORE_PIPELINE.out.visualise_results
+}
+
+output {
+    kmer_ord_project {
+        path { meta, results -> "kmer_ord_project/${meta.id}/k${meta.kmer}" }
+    }
+
+    kmer_ord_cluster {
+        path { meta, results -> "kmer_ord_cluster/${meta.id}/k${meta.kmer}" }
+    }
+
+    kmer_ord_inject {
+        path { meta, db -> "kmer_ord_inject/${meta.id}/k${meta.kmer}" }
+    }
+
+    kmer_ord_visualise {
+        path { meta, results -> "kmer_ord_visualise/${meta.id}/k${meta.kmer}" }
+    }
 }
 
 /*
