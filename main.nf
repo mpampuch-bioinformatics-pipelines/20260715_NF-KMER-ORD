@@ -96,19 +96,19 @@ workflow {
 
 output {
     kmer_ord_project {
-        path { meta, results -> "kmer_ord_project/${meta.id}/k${meta.kmer}" }
+        path { meta, results -> "${meta.id}/k${meta.kmer}/projection_results" }
     }
 
     kmer_ord_cluster {
-        path { meta, results -> "kmer_ord_cluster/${meta.id}/k${meta.kmer}" }
+        path { meta, results -> "${meta.id}/k${meta.kmer}/clustering_results" }
     }
 
     kmer_ord_inject {
-        path { meta, db -> "kmer_ord_inject/${meta.id}/k${meta.kmer}" }
+        path { meta, db -> "${meta.id}/k${meta.kmer}/combined_results" }
     }
 
     kmer_ord_visualise {
-        path { meta, results -> "kmer_ord_visualise/${meta.id}/k${meta.kmer}" }
+        path { meta, results -> "${meta.id}/k${meta.kmer}/plots" }
     }
 }
 
