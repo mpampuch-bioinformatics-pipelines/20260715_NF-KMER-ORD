@@ -27,7 +27,19 @@ process KMER_ORD_PROJECT {
     error("Sample ${meta.id} requests ${meta.threads} threads, but KMER_ORD_PROJECT was allocated ${task.cpus} CPUs.")
   }
   def threads = meta.threads ?: task.cpus
-  def sample_args = [meta.tiara ? "--tiara" : null, meta.dr ? "--dr ${meta.dr.join(',')}" : null, "--scale ${meta.scale}", "--norm ${meta.norm}", "--dims ${meta.dims}", meta.pca_pre ? "--pca-pre" : null, meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null, meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null, meta.screen_params ? "--screen-params" : null].findAll { argument -> argument }.join(" ")
+
+  // Use meta.dr_project only — cluster has its own meta.dr_cluster.
+  def sample_args = [
+      meta.tiara ? "--tiara" : null,
+      meta.dr_project ? "--dr ${meta.dr_project.join(',')}" : null,
+      "--scale ${meta.scale}",
+      "--norm ${meta.norm}",
+      "--dims ${meta.dims}",
+      meta.pca_pre ? "--pca-pre" : null,
+      meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null,
+      meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null,
+      meta.screen_params ? "--screen-params" : null
+  ].findAll { argument -> argument }.join(" ")
 
   """
     export HOME=\$PWD

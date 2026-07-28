@@ -32,40 +32,37 @@ workflow PIPELINE {
     ch_reads = ch_samplesheet.map { meta, reads, _inject_tsv -> [meta, reads] }
 
     //
-    // MODULE: Projection pipeline -> builds kmerord.sqlite (stats, k-mer counts, 2D/3D embedding)
+    // MODULE: Projection and clustering run in parallel from the same reads.
+    // Cluster assignment TSVs are injected into the project DB before visualise.
     //
     KMER_ORD_PROJECT(ch_reads)
     ch_versions = ch_versions.mix(KMER_ORD_PROJECT.out.versions)
 
-    //
-    // MODULE: Cluster inference pipeline -> integrates high-D embedding + cluster assignments
-    // into the same database. Joined on meta so each run's reads meet their own project DB.
-    //
-    ch_cluster_input = ch_reads.join(KMER_ORD_PROJECT.out.db)
-    KMER_ORD_CLUSTER(ch_cluster_input)
+    KMER_ORD_CLUSTER(ch_reads)
     ch_versions = ch_versions.mix(KMER_ORD_CLUSTER.out.versions)
 
     //
-    // MODULE: Optionally inject extra feature columns from a per-sample TSV before visualising.
-    // Samples without an inject_tsv (value []) bypass KMER_ORD_INJECT untouched.
+    // MODULE: Inject cluster assignment columns (and optional samplesheet inject_tsv)
+    // into each sample's project database features table.
     //
-    ch_db_with_inject = KMER_ORD_CLUSTER.out.db
+    ch_inject_input = KMER_ORD_PROJECT.out.db
+        .join(KMER_ORD_CLUSTER.out.cluster_tsvs)
         .join(ch_samplesheet.map { meta, _reads, inject_tsv -> [meta, inject_tsv] })
-        .branch { _meta, _db, inject_tsv ->
-            inject: inject_tsv
-            passthrough: true
+        .map { meta, db, cluster_tsvs, inject_tsv ->
+            def tsvs = cluster_tsvs instanceof List ? cluster_tsvs.collect() : [cluster_tsvs]
+            if (inject_tsv) {
+                tsvs = tsvs + [inject_tsv]
+            }
+            [meta, db, tsvs]
         }
 
-    KMER_ORD_INJECT(ch_db_with_inject.inject)
+    KMER_ORD_INJECT(ch_inject_input)
     ch_versions = ch_versions.mix(KMER_ORD_INJECT.out.versions)
-
-    ch_db_for_visualise = KMER_ORD_INJECT.out.db
-        .mix(ch_db_with_inject.passthrough.map { meta, db, _inject_tsv -> [meta, db] })
 
     //
     // MODULE: Visualise database tables (feature distributions + embedding plots)
     //
-    KMER_ORD_VISUALISE(ch_db_for_visualise)
+    KMER_ORD_VISUALISE(KMER_ORD_INJECT.out.db)
     ch_versions = ch_versions.mix(KMER_ORD_VISUALISE.out.versions)
 
     //

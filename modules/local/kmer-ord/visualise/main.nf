@@ -1,6 +1,6 @@
 process KMER_ORD_VISUALISE {
 
-  tag "${meta.id}"
+  tag "${meta.id}_k=${meta.kmer}"
   label 'process_medium'
 
   conda "${moduleDir}/environment.yml"

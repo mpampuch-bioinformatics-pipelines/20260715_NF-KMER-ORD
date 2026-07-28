@@ -11,13 +11,14 @@ process KMER_ORD_CLUSTER {
     : 'docker://PLACEHOLDER_DOCKER_IMAGE'}"
 
   input:
-  // db is the kmerord.sqlite produced by KMER_ORD_PROJECT; cluster assignments
-  // and the high-dimensional embedding are integrated back into this database.
-  tuple val(meta), path(input), path(db)
+  // Runs independently of KMER_ORD_PROJECT so both stages can execute in parallel.
+  // Cluster assignment TSVs are later injected into the project DB.
+  tuple val(meta), path(input)
 
   output:
   tuple val(meta), path("results"), emit: results_dir
   tuple val(meta), path("results/kmerord.sqlite"), emit: db
+  tuple val(meta), path("results/clusters/*.tsv"), emit: cluster_tsvs
   path "versions.yml", emit: versions
 
   when:
@@ -35,9 +36,10 @@ process KMER_ORD_CLUSTER {
   // cluster_dims is the high-dimensional embedding size used for clustering and
   // is intentionally distinct from meta.dims (the 2D/3D projection used by
   // KMER_ORD_PROJECT), so a sample can carry both without collision.
+  // Use meta.dr_cluster only — project has its own meta.dr_project.
   def sample_args = [
       "--dims ${meta.cluster_dims}",
-      meta.dr ? "--dr ${meta.dr.join(',')}" : null,
+      meta.dr_cluster ? "--dr ${meta.dr_cluster.join(',')}" : null,
       "--scale ${meta.scale}",
       "--norm ${meta.norm}",
       meta.pca_pre ? "--pca-pre" : null,
@@ -47,8 +49,7 @@ process KMER_ORD_CLUSTER {
       meta.cluster ? "--cluster ${meta.cluster.join(',')}" : null,
       meta.leiden_sweep ? "--leiden-sweep" : null,
       meta.hdbscan_sweep ? "--hdbscan-sweep" : null,
-      meta.dbscan_sweep ? "--dbscan-sweep" : null,
-      "--db ${db}"
+      meta.dbscan_sweep ? "--dbscan-sweep" : null
   ].findAll { argument -> argument }.join(" ")
 
   """
@@ -64,6 +65,12 @@ process KMER_ORD_CLUSTER {
         ${sample_args} \\
         ${args}
 
+    # Standalone cluster writes discovery.sqlite; project writes kmerord.sqlite.
+    # Rename so pipeline I/O stays consistent across stages.
+    if [ -f results/discovery.sqlite ] && [ ! -f results/kmerord.sqlite ]; then
+        mv results/discovery.sqlite results/kmerord.sqlite
+    fi
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         kmer-ord: aa22b130903e8f6aa71c881b22c4b18b2efd2486
@@ -72,10 +79,11 @@ process KMER_ORD_CLUSTER {
 
   stub:
   """
-    mkdir -p results
+    mkdir -p results/clusters
 
     touch results/stub.txt
     touch results/kmerord.sqlite
+    touch results/clusters/stub_hdbscan_clusters.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
