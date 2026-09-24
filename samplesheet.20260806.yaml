@@ -1,0 +1,17 @@
+- id: KAUST062
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/62_Coelastrummicroporum/62_Coelastrummicroporum.hifi_reads.fastq
+  kmers: [4,5,6,7]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  dr_cluster:
+    - umap
+    - trimap
+    - pacmap
+    - localmap
+    - pca

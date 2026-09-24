@@ -2,7 +2,6 @@
   reads: /ibex/project/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta
   kmers: [4,5]
   tiara: true
-  rdna: true
   dr_project:
     - umap
     - tsne
@@ -21,7 +20,6 @@
   reads: /ibex/project/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.5percent.fasta
   kmers: [4]
   tiara: true
-  rdna: true
   dr_project:
     - pca
   dr_cluster:

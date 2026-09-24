@@ -1,0 +1,303 @@
+# Projection-only run on all datasets with the new kmer-ord params
+# For container with 1c0320b3e7eaa259e10503a664d82fdda4977994 version of kmer-ord (my RAM efficient fork)
+
+- id: Coral_1_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934295_SRR32629517.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Coral_1_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934295_SRR32629517.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Coral_1_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934295_SRR32629517.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Coral_2_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934296_SRR32629516.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Coral_2_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934296_SRR32629516.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Coral_2_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX27934296_SRR32629516.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Lichen_metagenome_1_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Lichen_metagenome_1_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Lichen_metagenome_1_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Lichen_metagenome_2_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Lichen_metagenome_2_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Lichen_metagenome_2_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Coral_combined_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Coral_combined_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Coral_combined_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Lichen_metagenome_combined_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/umbilicaria-phaea-metagenome-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Lichen_metagenome_combined_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/umbilicaria-phaea-metagenome-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Lichen_metagenome_combined_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/umbilicaria-phaea-metagenome-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Coral-and-Lichen_metagenome_combined_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-and-umbilicaria-phaea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Coral-and-Lichen_metagenome_combined_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-and-umbilicaria-phaea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Coral-and-Lichen_metagenome_combined_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/CUSTOM-DATASETS/platygryra-daedalea-and-umbilicaria-phaea-reads.fastq.gz
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca

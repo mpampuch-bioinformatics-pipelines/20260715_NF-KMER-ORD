@@ -1,0 +1,32 @@
+# Projection-only run on test data to see why visualization subworkflow didn't run and to troubleshoot
+# For container with 1c0320b3e7eaa259e10503a664d82fdda4977994 version of kmer-ord (my RAM efficient fork)
+
+- id: KAUST063_mpRAM_raw_no_pca_pre_rDNA_miner_platform_pacbio
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/63_Monoraphidiumcircinale/63_Monoraphidiumcircinale.hifi_reads.fastq
+  kmers: [6]
+  tiara: true
+  rdna: true
+  rdna_platform: "pacbio"
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST063_mpRAM_raw_no_pca_pre_rDNA_miner_platform_autodetect
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/63_Monoraphidiumcircinale/63_Monoraphidiumcircinale.hifi_reads.fastq
+  kmers: [6]
+  tiara: true
+  rdna: true
+  rdna_platform: "auto"
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false

@@ -24,6 +24,16 @@
                 "lle"
                 ]
             }
+        },
+        "screen_specs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "pattern": "^\\S+=\\S+$",
+                "errorMessage": "Screen specs must look like 'method=v1,v2,...' or 'all=v1,v2,...' (no spaces)"
+            }
         }
     },
     "items": {
@@ -65,6 +75,18 @@
                 "default": false,
                 "meta": "tiara"
             },
+            "rdna": {
+                "type": "boolean",
+                "default": false,
+                "meta": "rdna"
+            },
+            "rdna_platform": {
+                "type": "string",
+                "description": "Sequencing platform for rDNA-miner in kmer-ord project (only used when rdna is true).",
+                "enum": ["auto", "ont", "pacbio"],
+                "default": "auto",
+                "meta": "rdna_platform"
+            },
             "dr_project": {
                 "$ref": "#/$defs/dr_methods",
                 "description": "Dimensionality-reduction methods to run in kmer-ord project workflow.",
@@ -77,11 +99,15 @@
             },
             "scale": {
                 "type": "string",
+                "description": "Dataset scale preset for DR hyperparameters.",
+                "enum": ["auto", "small", "medium", "large", "default"],
                 "default": "auto",
                 "meta": "scale"
             },
             "norm": {
                 "type": "string",
+                "description": "K-mer count normalization method.",
+                "enum": ["raw", "relative", "log", "clr", "zscore"],
                 "default": "clr",
                 "meta": "norm"
             },
@@ -131,6 +157,20 @@
                 "default": false,
                 "meta": "pca_pre"
             },
+            "pca_pre_method": {
+                "type": ["string", "null"],
+                "description": "PCA algorithm for pca_pre: 'pca' (exact, more RAM) or 'ipca' (incremental/batched, low RAM).",
+                "enum": ["pca", "ipca", null],
+                "default": null,
+                "meta": "pca_pre_method"
+            },
+            "pca_pre_batch_size": {
+                "type": ["integer", "null"],
+                "description": "IncrementalPCA batch size (only used with pca_pre_method 'ipca').",
+                "minimum": 1,
+                "default": null,
+                "meta": "pca_pre_batch_size"
+            },
             "keep_pcs": {
                 "type": ["integer", "null"],
                 "minimum": 1,
@@ -148,6 +188,33 @@
                 "type": "boolean",
                 "default": false,
                 "meta": "screen_params"
+            },
+            "screen_values1": {
+                "$ref": "#/$defs/screen_specs",
+                "description": "Explicit axis-1 (count-like) screen values per DR method, e.g. 'umap=5,10,15' or 'all=10,20'.",
+                "meta": "screen_values1"
+            },
+            "screen_values2": {
+                "$ref": "#/$defs/screen_specs",
+                "description": "Explicit axis-2 screen values per DR method, e.g. 'umap=0.1,0.5'.",
+                "meta": "screen_values2"
+            },
+            "screen_range1": {
+                "$ref": "#/$defs/screen_specs",
+                "description": "Axis-1 range for auto-generated screen grids, e.g. 'umap=5,50' or 'all=5,50'.",
+                "meta": "screen_range1"
+            },
+            "screen_range2": {
+                "$ref": "#/$defs/screen_specs",
+                "description": "Axis-2 range for auto-generated screen grids, e.g. 'umap=0.1,0.9'.",
+                "meta": "screen_range2"
+            },
+            "screen_grid": {
+                "type": "string",
+                "description": "Grid size for auto-generated screens: 'N' (1D) or 'NxM' (2D). Applies to every screened DR method.",
+                "pattern": "^\\d+(x\\d+)?$",
+                "errorMessage": "screen_grid must be 'N' (e.g. '5') or 'NxM' (e.g. '5x4')",
+                "meta": "screen_grid"
             },
             "max_categories": {
                 "type": "integer",

@@ -1,0 +1,85 @@
+- id: Lichen_metagenome_1_1millionReadsSubsampled_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Lichen_metagenome_1_1millionReadsSubsampled_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Lichen_metagenome_1_1millionReadsSubsampled_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: Lichen_metagenome_2_1millionReadsSubsampled_mpRAM_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: Lichen_metagenome_2_1millionReadsSubsampled_mpRAM_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: Lichen_metagenome_2_1millionReadsSubsampled_mpRAM_ipca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925340_SRR13514086.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca

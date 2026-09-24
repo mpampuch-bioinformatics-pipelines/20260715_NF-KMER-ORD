@@ -1,4 +1,33 @@
-samples:
+### 
+#  20260902 this is a new samplesheet with the new kmer-ord params
+###
+
+- id: KAUST061_raw
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  scale: auto                  # auto | small | medium | large | default
+  norm: clr                    # raw | relative | log | clr | zscore
+  dims: 2
+  pca_pre: true
+  pca_pre_method: ipca         # pca (exact, more RAM) | ipca (batched, low RAM)
+  pca_pre_batch_size: 4096     # only used with ipca
+  screen_params: true
+  screen_values1:
+    - umap=15,30,50            # axis-1 (count-like) values per method, or all=...
+  screen_range2:
+    - umap=0.1,0.5             # axis-2 range for auto-generated grids
+  screen_grid: 5x5             # N (1D) or NxM (2D), applies to every screened method
+
+### End ###
+
   - id: KAUST67
     reads: /path/sample67.fastq.gz
     kmers: [6, 10, 11]
@@ -22,6 +51,7 @@ samples:
       #  if keep_pcs is None and keep_variance is None:
         # raise ValueError("Either keep_pcs or keep_variance must be specified.")
     screen_params: false # This should be default in the schema and optional in the samplesheet.
+    
 
     
   - id: KAUST68

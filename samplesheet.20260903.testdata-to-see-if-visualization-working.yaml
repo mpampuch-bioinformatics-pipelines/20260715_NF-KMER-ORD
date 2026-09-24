@@ -1,0 +1,15 @@
+# Projection-only run on test data to see why visualization subworkflow didn't run and to troubleshoot
+# For container with 1c0320b3e7eaa259e10503a664d82fdda4977994 version of kmer-ord (my RAM efficient fork)
+
+- id: KAUST061_mpRAM_raw_no_pca_pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.5percent.fasta
+  kmers: [6]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false

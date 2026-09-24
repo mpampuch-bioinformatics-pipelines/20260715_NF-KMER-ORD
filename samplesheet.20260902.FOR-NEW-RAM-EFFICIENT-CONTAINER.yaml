@@ -1,0 +1,432 @@
+# Projection-only run on all datasets with the new kmer-ord params
+# For container with 1c0320b3e7eaa259e10503a664d82fdda4977994 version of kmer-ord (my RAM efficient fork)
+
+- id: KAUST061_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST061_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST061_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: true
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST062_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/62_Coelastrummicroporum/62_Coelastrummicroporum.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+
+- id: KAUST062_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/62_Coelastrummicroporum/62_Coelastrummicroporum.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST062_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/62_Coelastrummicroporum/62_Coelastrummicroporum.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+
+- id: KAUST063_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/63_Monoraphidiumcircinale/63_Monoraphidiumcircinale.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+
+- id: KAUST063_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/63_Monoraphidiumcircinale/63_Monoraphidiumcircinale.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  
+- id: KAUST063_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/63_Monoraphidiumcircinale/63_Monoraphidiumcircinale.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST064_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/64_Chlamydomonassp/64_Chlamydomonassp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST064_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/64_Chlamydomonassp/64_Chlamydomonassp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  
+- id: KAUST064_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/64_Chlamydomonassp/64_Chlamydomonassp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST065_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/65_Phormidesmismolle/65_Phormidesmismolle.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+  
+- id: KAUST065_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/65_Phormidesmismolle/65_Phormidesmismolle.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  
+- id: KAUST065_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/65_Phormidesmismolle/65_Phormidesmismolle.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST066_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/66_Desmodesmussp/66_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST066_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/66_Desmodesmussp/66_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST066_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/66_Desmodesmussp/66_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST067_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/67_Scenedesmussp/67_Scenedesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST067_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/67_Scenedesmussp/67_Scenedesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST067_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/67_Scenedesmussp/67_Scenedesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST068_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/68_Nitzschiasp/68_Nitzschiasp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST068_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/68_Nitzschiasp/68_Nitzschiasp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST068_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/68_Nitzschiasp/68_Nitzschiasp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST070_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/70_Fistuliferasaprophila/70_Fistuliferasaprophila.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST070_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/70_Fistuliferasaprophila/70_Fistuliferasaprophila.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST070_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/70_Fistuliferasaprophila/70_Fistuliferasaprophila.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+
+- id: KAUST071_mpRAM_raw_no_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/71_Desmodesmussp/71_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: false
+
+- id: KAUST071_mpRAM_raw_pca_pre
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/71_Desmodesmussp/71_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+
+- id: KAUST071_mpRAM_raw_pca_pre_ipca
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/71_Desmodesmussp/71_Desmodesmussp.hifi_reads.fastq
+  kmers: [6,7]
+  tiara: false
+  dr_project:
+    - umap
+    - tsne
+    - trimap
+    - pacmap
+    - localmap
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  

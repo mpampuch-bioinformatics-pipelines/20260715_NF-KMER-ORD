@@ -5,7 +5,7 @@ process KMER_ORD_VISUALISE {
 
   conda "${moduleDir}/environment.yml"
   container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20260719.sif'
+    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20260924.RAM-efficient-fork.v7.sif'
     : 'docker://PLACEHOLDER_DOCKER_IMAGE'}"
 
   input:
@@ -21,12 +21,7 @@ process KMER_ORD_VISUALISE {
   script:
   def args = task.ext.args ?: ""
 
-  def sample_args = [
-      meta.max_categories != null ? "--max-categories ${meta.max_categories}" : null,
-      meta.embeddings != null && !meta.embeddings ? "--no-embeddings" : "--embeddings",
-      meta.embedding_mode ? "--embedding-mode ${meta.embedding_mode}" : null,
-      meta.features != null && !meta.features ? "--no-features" : "--features"
-  ].findAll { argument -> argument }.join(" ")
+  def sample_args = [meta.max_categories != null ? "--max-categories ${meta.max_categories}" : null, meta.embeddings != null && !meta.embeddings ? "--no-embeddings" : "--embeddings", meta.embedding_mode ? "--embedding-mode ${meta.embedding_mode}" : null, meta.features != null && !meta.features ? "--no-features" : "--features"].findAll { argument -> argument }.join(" ")
 
   // `kmer-ord visualise` has no --output option; it writes plots into the working
   // directory. Run it from inside results/ (with the db linked in) so every

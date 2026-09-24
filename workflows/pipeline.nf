@@ -16,9 +16,9 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 */
 
 workflow PIPELINE {
-
     take:
     ch_samplesheet // channel: [ val(meta), path(reads), path(inject_tsv) ]
+
     main:
 
     ch_versions = channel.empty()
@@ -89,7 +89,8 @@ workflow PIPELINE {
     //
     // Collate and save software versions
     //
-    def topic_versions = Channel.topic("versions")
+    def topic_versions = Channel
+        .topic("versions")
         .distinct()
         .branch { entry ->
             versions_file: entry instanceof Path
@@ -98,9 +99,9 @@ workflow PIPELINE {
 
     def topic_versions_string = topic_versions.versions_tuple
         .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
         }
-        .groupTuple(by:0)
+        .groupTuple(by: 0)
         .map { process, tool_versions ->
             tool_versions.unique().sort()
             "${process}:\n${tool_versions.join('\n')}"
@@ -110,23 +111,17 @@ workflow PIPELINE {
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
-            name:  'pipeline_software_'  + 'mqc_'  + 'versions.yml',
+            name: 'pipeline_software_' + 'mqc_' + 'versions.yml',
             sort: true,
-            newLine: true
-        ).set { ch_collated_versions }
+            newLine: true,
+        )
+        .set { ch_collated_versions }
 
     emit:
     multiqc_report    = channel.empty() // MULTIQC removed
-    versions          = ch_versions     // channel: [ path(versions.yml) ]
+    versions          = ch_versions // channel: [ path(versions.yml) ]
     project_results   = KMER_ORD_PROJECT.out.results_dir
     cluster_results   = KMER_ORD_CLUSTER.out.results_dir
     inject_db         = KMER_ORD_INJECT.out.db
     visualise_results = KMER_ORD_VISUALISE.out.results_dir
-
 }
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
