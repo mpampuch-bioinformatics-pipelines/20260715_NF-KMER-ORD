@@ -1,0 +1,131 @@
+# Parameter screen for 27_Chlamydomonas and 65_Cyanobacteria.
+# One sample per method (pacmap, localmap, trimap), plus an _rdna copy.
+# rDNA samples use /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db.
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_pacmap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - pacmap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_pacmap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - pacmap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_localmap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - localmap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_localmap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - localmap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_trimap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - trimap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 27_Chlamydomonas_trimap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/27_Chlamydomonas/27_Chlamydomonas.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - trimap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_pacmap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - pacmap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_pacmap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - pacmap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_localmap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - localmap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_localmap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - localmap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_trimap_screen
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - trimap
+  screen_params: true
+  tiara: true
+  verbose: true
+- id: 65_Cyanobacteria_trimap_screen_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20261021_131658/1_C01/version_01/65_Cyanobacteria/65_Cyanobacteria.fastq.gz
+  kmers:
+  - 6
+  dr_project:
+  - trimap
+  screen_params: true
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db
+  tiara: true
+  verbose: true

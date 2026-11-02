@@ -1,0 +1,18 @@
+# Smoke test of 65_Cyanobacteria_pca_pre_rdna (pacmap, verbose, tiara,
+# pca_pre / keep_pcs 100 / pca, pacbio rDNA against the shared db).
+# Reads are the 0.5% Monoraphidium FASTA: 1284 sequences, which is enough
+# for keep_pcs 100. The full 65_Cyanobacteria fastq.gz is not used here.
+- id: 65_Cyanobacteria_pca_pre_rdna_smoke
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.0.5.percent.fasta
+  kmers:
+  - 6
+  dr_project:
+  - pacmap
+  verbose: true
+  tiara: true
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  rdna: true
+  rdna_platform: pacbio
+  rdna_db_dir: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/.rdna-miner/db

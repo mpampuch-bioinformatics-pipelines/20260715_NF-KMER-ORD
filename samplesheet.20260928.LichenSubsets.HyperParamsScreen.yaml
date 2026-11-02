@@ -1,0 +1,399 @@
+# - id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_UMAP_no-pca-pre
+#   reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+#   kmers: [6]
+#   tiara: true
+#   dr_project:
+#     - umap
+#   pca_pre: false
+#   screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_UMAP_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_UMAP_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - umap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_no-pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - tsne
+  pca_pre: false
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - tsne
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - tsne
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_no-pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - trimap
+  pca_pre: false
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - trimap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - trimap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_no-pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pacmap
+  pca_pre: false
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pacmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pacmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_no-pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - localmap
+  pca_pre: false
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - localmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - localmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_no-pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pca
+  pca_pre: false
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_pca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_ipca-pre
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers: [6]
+  tiara: true
+  dr_project:
+    - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+
+# rDNA-miner copies of the active samples above.
+# Database already contains rfam/, pr2/, and silva/, so the install step is skipped.
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_UMAP_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - umap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_UMAP_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - umap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_no-pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - tsne
+  pca_pre: false
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - tsne
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_tSNE_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - tsne
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_no-pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - trimap
+  pca_pre: false
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - trimap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_TRIMAP_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - trimap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_no-pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pacmap
+  pca_pre: false
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pacmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PACMAP_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pacmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_no-pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - localmap
+  pca_pre: false
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - localmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_LOCALMAP_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - localmap
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_no-pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pca
+  pca_pre: false
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_pca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: pca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+- id: Lichen-metagenome-1_1millionReadsSubsampled_mpRAM_hyperparams-screen_PCA_ipca-pre_rdna
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/20260819_try-on-big-data/OUTPUTS/20260820_203217/fastq/SRX9925339_SRR13514087.1millionReads.fastq
+  kmers:
+  - 6
+  tiara: true
+  dr_project:
+  - pca
+  pca_pre: true
+  keep_pcs: 100
+  pca_pre_method: ipca
+  screen_params: true
+  rdna: true
+  rdna_db_dir: /home/pampum/.rdna-miner/db

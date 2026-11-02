@@ -1,0 +1,8 @@
+---
+# Local singularity image provides the kmer-ord runtime.
+# Kept so the module conda directive resolves when a conda profile is used.
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11

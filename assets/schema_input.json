@@ -12,16 +12,15 @@
             "uniqueItems": true,
             "items": {
                 "type": "string",
+                "description": "A dimensionality-reduction method. 'all' runs every method.",
                 "enum": [
-                "umap",
-                "tsne",
-                "trimap",
-                "pacmap",
-                "localmap",
-                "pca",
-                "sparse_pca",
-                "kernel_pca",
-                "lle"
+                    "umap",
+                    "tsne",
+                    "pca",
+                    "trimap",
+                    "pacmap",
+                    "localmap",
+                    "all"
                 ]
             }
         },
@@ -75,6 +74,12 @@
                 "default": false,
                 "meta": "tiara"
             },
+            "verbose": {
+                "type": "boolean",
+                "default": false,
+                "description": "Pass --verbose to kmer-ord project. Shows full rDNA-miner, Tiara, and dimensionality-reduction logs. The default is a short summary.",
+                "meta": "verbose"
+            },
             "rdna": {
                 "type": "boolean",
                 "default": false,
@@ -86,6 +91,40 @@
                 "enum": ["auto", "ont", "pacbio"],
                 "default": "auto",
                 "meta": "rdna_platform"
+            },
+            "rdna_db_dir": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "description": "rDNA-miner database directory for this sample. Replaces --rdna_db_dir. The directory may not exist yet; kmer-ord rdna-db installs rfam/, pr2/, and silva/ when any of them is missing.",
+                "errorMessage": "rdna_db_dir must be a directory path without spaces",
+                "meta": "rdna_db_dir"
+            },
+            "rdna_rfam_db": {
+                "type": "string",
+                "format": "directory-path",
+                "exists": true,
+                "pattern": "^\\S+$",
+                "description": "Override path to the Rfam database directory. Passed as --rdna-rfam-db only when rdna is true.",
+                "errorMessage": "rdna_rfam_db must be an existing directory path without spaces",
+                "meta": "rdna_rfam_db"
+            },
+            "rdna_pr2_db": {
+                "type": "string",
+                "format": "directory-path",
+                "exists": true,
+                "pattern": "^\\S+$",
+                "description": "Override path to the PR2 database directory. Passed as --rdna-pr2-db only when rdna is true.",
+                "errorMessage": "rdna_pr2_db must be an existing directory path without spaces",
+                "meta": "rdna_pr2_db"
+            },
+            "rdna_silva_db": {
+                "type": "string",
+                "format": "directory-path",
+                "exists": true,
+                "pattern": "^\\S+$",
+                "description": "Override path to the SILVA database directory. Passed as --rdna-silva-db only when rdna is true.",
+                "errorMessage": "rdna_silva_db must be an existing directory path without spaces",
+                "meta": "rdna_silva_db"
             },
             "dr_project": {
                 "$ref": "#/$defs/dr_methods",
@@ -215,6 +254,13 @@
                 "pattern": "^\\d+(x\\d+)?$",
                 "errorMessage": "screen_grid must be 'N' (e.g. '5') or 'NxM' (e.g. '5x4')",
                 "meta": "screen_grid"
+            },
+            "dr_on_failure": {
+                "type": "string",
+                "description": "What to do when a DR method fails in kmer-ord project or cluster. 'continue' skips that method and runs the rest. 'abort' stops immediately. Passed as --dr-on-failure only when set to abort.",
+                "enum": ["continue", "abort"],
+                "default": "continue",
+                "meta": "dr_on_failure"
             },
             "max_categories": {
                 "type": "integer",

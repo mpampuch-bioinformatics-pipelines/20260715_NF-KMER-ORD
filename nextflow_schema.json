@@ -52,6 +52,13 @@
           "default": true,
           "description": "Run the k-mer clustering workflow (KMER_ORD_CLUSTER).",
           "fa_icon": "fas fa-object-group"
+        },
+        "rdna_db_dir": {
+          "type": "string",
+          "pattern": "^\\S+$",
+          "description": "Shared rDNA-miner database directory (rfam/, pr2/, and silva/). A sample rdna_db_dir replaces this. When a sample runs rDNA and the directory is missing any of those subdirectories, the pipeline installs them with kmer-ord rdna-db.",
+          "help_text": "Required when a sample sets rdna: true and does not set its own rdna_db_dir. The directory does not need to exist yet.",
+          "fa_icon": "fas fa-database"
         }
       }
     },

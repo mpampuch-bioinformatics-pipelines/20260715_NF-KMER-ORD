@@ -1,5 +1,10 @@
-### 
-#  20260902 this is a new samplesheet with the new kmer-ord params
+###
+# Samplesheet fields match kmer-ord on the tiara-screen branch.
+# Required: id, reads, kmers.
+# dr_project runs projection. dr_cluster runs clustering.
+# --rdna_db_dir /shared/rdna-miner/db   is the shared database for every rDNA sample.
+# A sample rdna_db_dir replaces it. If rfam/, pr2/, or silva/ is missing, the
+# pipeline runs: kmer-ord rdna-db install all --db-dir <path>
 ###
 
 - id: KAUST061_raw
@@ -13,10 +18,13 @@
     - pacmap
     - localmap
     - pca
+    # - all                 # runs every dimensionality-reduction method
   scale: auto                  # auto | small | medium | large | default
   norm: clr                    # raw | relative | log | clr | zscore
   dims: 2
   pca_pre: true
+  keep_pcs: 50                 # required with pca_pre; mutually exclusive with keep_variance
+  # keep_variance: 0.95
   pca_pre_method: ipca         # pca (exact, more RAM) | ipca (batched, low RAM)
   pca_pre_batch_size: 4096     # only used with ipca
   screen_params: true
@@ -25,41 +33,18 @@
   screen_range2:
     - umap=0.1,0.5             # axis-2 range for auto-generated grids
   screen_grid: 5x5             # N (1D) or NxM (2D), applies to every screened method
+  # dr_on_failure: abort       # default continue; abort needs a kmer-ord image from tiara-screen 48d8881 or later
 
-### End ###
-
-  - id: KAUST67
-    reads: /path/sample67.fastq.gz
-    kmers: [6, 10, 11]
-    tiara: true
-    dr:
-      - umap
-      - tsne
-      - trimap
-      - pacmap
-      - localmap
-      - pca
-      - sparse_pca
-      - kernel_pca
-      - lle
-    scale: auto # This should be default in the schema and optional in the samplesheet
-    norm: clr # This should be default in the schema and optional in the samplesheet
-    dims: 2 # This should be default in the schema and optional in the samplesheet
-    pca_pre: false # This should be default in the schema and optional in the samplesheet
-    keep_pcs: None # This should be default in the schema and optional in the samplesheet. Otherwise should be an integer.
-    # keep_variance: 0.95 # This should be default in the schema and optional in the samplesheet. Otherwise should be a float between 0 and 1.
-      #  if keep_pcs is None and keep_variance is None:
-        # raise ValueError("Either keep_pcs or keep_variance must be specified.")
-    screen_params: false # This should be default in the schema and optional in the samplesheet.
-    
-
-    
-  - id: KAUST68
-    reads: /path/sample68.fastq.gz
-    kmers: [8, 12]
-    threads: 4
-    dr:
-      - pca
-      - kernel_pca
-      - sparse_pca
-      - lle
+- id: KAUST061_rdna
+  reads: /ibex/project/c2303/ALL-BCL-SEQ-READS/BCLCustomers/lauersk/Revio/r84180_20260101_070352/1_C01/version_01/61_Pleodorinaillinoisensis/61_Pleodorinaillinoisensis.hifi_reads.fastq
+  kmers: [6]
+  rdna: true
+  rdna_platform: pacbio        # auto | ont | pacbio
+  # Overrides --rdna_db_dir for this sample. This directory already has
+  # rfam/, pr2/, and silva/, so the install step is skipped.
+  rdna_db_dir: /home/pampum/.rdna-miner/db
+  # rdna_rfam_db: /home/pampum/.rdna-miner/db/rfam
+  # rdna_pr2_db: /home/pampum/.rdna-miner/db/pr2
+  # rdna_silva_db: /home/pampum/.rdna-miner/db/silva
+  dr_project:
+    - umap

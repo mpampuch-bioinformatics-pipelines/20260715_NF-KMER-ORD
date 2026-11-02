@@ -42,4 +42,4 @@ cp "$0" "$NXF_OUTPUT_DIR/slurm_script.sbatch" # Copy the script to the output di
 echo "$(pwd)" > "$NXF_OUTPUT_DIR/projectDir.txt"
 
 # Run your job script here
-nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report -profile kaust --input "$INPUT_FILE" --outdir "$NXF_OUTPUT_DIR" -ansi-log true -resume
+nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report -profile kaust --input "$INPUT_FILE" --outdir "$NXF_OUTPUT_DIR" -ansi-log true #-resume

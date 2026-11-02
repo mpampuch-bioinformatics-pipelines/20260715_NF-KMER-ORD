@@ -4,6 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { KMER_ORD_PROJECT       } from '../modules/local/kmer-ord/project/main'
+include { KMER_ORD_RDNA_DB       } from '../modules/local/kmer-ord/rdna_db/main'
 include { KMER_ORD_CLUSTER       } from '../modules/local/kmer-ord/cluster/main'
 include { KMER_ORD_INJECT        } from '../modules/local/kmer-ord/inject/main'
 include { KMER_ORD_VISUALISE     } from '../modules/local/kmer-ord/visualise/main'
@@ -26,10 +27,59 @@ workflow PIPELINE {
     // reads-only view for the modules that consume the fasta/fastq input
     ch_reads = ch_samplesheet.map { meta, reads, _inject_tsv -> [meta, reads] }
 
-    // Filter reads for projection workflow based on params.run_projection and sample meta.dr_project
-    ch_project_reads = ch_reads.filter { meta, _reads ->
-        (params.run_projection == null || params.run_projection) && meta.dr_project
+    // Filter reads for projection workflow based on params.run_projection and sample meta.dr_project.
+    // A sample rdna_db_dir replaces the shared --rdna_db_dir. rDNA inside project
+    // needs one of those paths; the install module creates it when it is incomplete.
+    ch_project_reads = ch_reads
+        .filter { meta, _reads ->
+            (params.run_projection == null || params.run_projection) && meta.dr_project
+        }
+        .map { meta, reads ->
+            if (!meta.rdna) {
+                return [meta, reads]
+            }
+            def rdna_db_dir = meta.rdna_db_dir ?: params.rdna_db_dir
+            if (!rdna_db_dir) {
+                error("Samplesheet error [${meta.id}]: rdna requires --rdna_db_dir or a sample rdna_db_dir.")
+            }
+            [meta + [rdna_db_dir: rdna_db_dir], reads]
+        }
+
+    // rfam/, pr2/, and silva/ are what `kmer-ord rdna-db install all` writes.
+    def rdnaDbReady = { String dir ->
+        ['rfam', 'pr2', 'silva'].every { name -> file("${dir}/${name}").isDirectory() }
     }
+
+    ch_project_reads
+        .branch { meta, _reads ->
+            def needs_install = meta.rdna && !rdnaDbReady(meta.rdna_db_dir)
+            // Singularity only bind-mounts a directory that already exists.
+            if (needs_install) {
+                file(meta.rdna_db_dir).mkdirs()
+            }
+            install: needs_install
+            ready: true
+        }
+        .set { ch_project_rdna }
+
+    // One install per directory. multiMap keeps the sample tuples for the join
+    // below; a branch channel can only be consumed once.
+    ch_project_rdna.install
+        .multiMap { meta, reads ->
+            dirs: meta.rdna_db_dir
+            samples: [meta, reads]
+        }
+        .set { ch_rdna_install }
+
+    KMER_ORD_RDNA_DB(ch_rdna_install.dirs.unique())
+    ch_versions = ch_versions.mix(KMER_ORD_RDNA_DB.out.versions)
+
+    ch_project_after_install = ch_rdna_install.samples
+        .combine(KMER_ORD_RDNA_DB.out.db_dir)
+        .filter { meta, _reads, dir -> meta.rdna_db_dir == dir }
+        .map { meta, reads, _dir -> [meta, reads] }
+
+    ch_project_with_db = ch_project_rdna.ready.mix(ch_project_after_install)
 
     // Filter reads for clustering workflow based on params.run_clustering and sample meta.dr_cluster
     ch_cluster_reads = ch_reads.filter { meta, _reads ->
@@ -39,7 +89,7 @@ workflow PIPELINE {
     //
     // MODULE: Projection (optional)
     //
-    KMER_ORD_PROJECT(ch_project_reads)
+    KMER_ORD_PROJECT(ch_project_with_db)
     ch_versions = ch_versions.mix(KMER_ORD_PROJECT.out.versions)
 
     //

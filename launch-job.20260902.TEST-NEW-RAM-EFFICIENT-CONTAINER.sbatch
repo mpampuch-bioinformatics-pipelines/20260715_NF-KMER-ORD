@@ -29,7 +29,7 @@ export NXF_WORK=/ibex/scratch/projects/c2303/work
 
 # Put in your file paths
 # E.g.
-INPUT_FILE="/ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/samplesheet.20260902.FOR-NEW-RAM-EFFICIENT-CONTAINER.yaml"
+INPUT_FILE="/ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/samplesheet.test.20260928.hyperparams.yaml"
 CONFIG_FILE="nextflow.TEST-NEW-RAM-EFFICIENT-CONTAINER.config"
 NXF_OUTPUT_DIR="OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"
@@ -42,6 +42,6 @@ cp "$0" "$NXF_OUTPUT_DIR/slurm_script.sbatch" # Copy the script to the output di
 echo "$(pwd)" > "$NXF_OUTPUT_DIR/projectDir.txt"
 
 # Run your job script here
-nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report -profile kaust --input "$INPUT_FILE" --outdir "$NXF_OUTPUT_DIR" -ansi-log false -resume 32829ce6-1923-4a35-be61-c46c3d1c3613
+nextflow -log "$NXF_LOG_FILE" run . -c "$CONFIG_FILE" -with-report -profile kaust --input "$INPUT_FILE" --outdir "$NXF_OUTPUT_DIR" -ansi-log true -resume 
 # -resume 9ce6-1923-4a35-be61-c46c3d1c3613 added on 2026-09-04 after adding more resources to visualize process in config to get visualizations to run 
 

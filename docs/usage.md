@@ -18,20 +18,31 @@ Provide a YAML samplesheet containing a top-level list of samples:
 - id: sample1
   reads: /path/to/sample1.fastq.gz
   kmers: [6, 10]
-  dr: [umap, pca]
+  dr_project: [umap, pca]
   tiara: true
 
 - id: sample2
   reads: /path/to/sample2.fasta.gz
   kmers: [8]
-  dr: [pca]
+  dr_project: [umap]
+  rdna: true
+  rdna_db_dir: /path/to/rdna-miner/db
   threads: 4
 ```
 
-Required fields are `id`, `reads`, `kmers`, and `dr`. Each sample is run once
+Required fields are `id`, `reads`, and `kmers`. Set `dr_project` to run the
+projection workflow and `dr_cluster` to run clustering. Each sample is run once
 for every requested k-mer. Optional settings and their defaults are documented
-in [`samplesheet.example.yaml`](../samplesheet.example.yaml). `keep_pcs` and
-`keep_variance` are mutually exclusive.
+in [`samplesheet.example.yaml`](../samplesheet.example.yaml). Dimensionality-reduction
+methods are `umap`, `tsne`, `pca`, `trimap`, `pacmap`, `localmap`, and `all`.
+`keep_pcs` and `keep_variance` are mutually exclusive, and `pca_pre` requires one
+of them. `dr_on_failure` is `continue` (default) or `abort`.
+
+`--rdna_db_dir` is the shared rDNA-miner database for the run. A sample
+`rdna_db_dir` replaces that path for that sample. When `rdna` is true and the
+resolved directory is missing `rfam/`, `pr2/`, or `silva/`, the pipeline runs
+`kmer-ord rdna-db install all --db-dir <path>` before `project`. `rdna_rfam_db`,
+`rdna_pr2_db`, and `rdna_silva_db` point at databases that are already installed.
 
 ## Running the pipeline
 

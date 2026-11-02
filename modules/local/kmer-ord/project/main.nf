@@ -7,7 +7,7 @@ process KMER_ORD_PROJECT {
 
   conda "${moduleDir}/environment.yml"
   container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20260924.RAM-efficient-fork.v7.sif'
+    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20261029.RAM-efficient-fork.v14.sif'
     : 'docker://PLACEHOLDER_DOCKER_IMAGE'}"
 
   input:
@@ -29,10 +29,15 @@ process KMER_ORD_PROJECT {
   def threads = meta.threads ?: task.cpus
 
   // Use meta.dr_project only — cluster has its own meta.dr_cluster.
-  // --rdna-platform is gated on --rDNA, and --pca-pre-method/--pca-pre-batch-size
-  // on --pca-pre, since the CLI only reads them alongside those toggles.
+  // --rdna-platform and the rDNA database paths are gated on --rDNA, and
+  // --pca-pre-method/--pca-pre-batch-size on --pca-pre, since the CLI only
+  // reads them alongside those toggles.
   // Screen spec fields are repeatable CLI flags: one token per samplesheet list item.
-  def sample_args = [meta.tiara ? "--tiara" : null, meta.rdna ? "--rDNA" : null, meta.rdna && meta.rdna_platform ? "--rdna-platform ${meta.rdna_platform}" : null, meta.dr_project ? "--dr ${meta.dr_project.join(',')}" : null, "--scale ${meta.scale}", "--norm ${meta.norm}", "--dims ${meta.dims}", meta.pca_pre ? "--pca-pre" : null, meta.pca_pre && meta.pca_pre_method ? "--pca-pre-method ${meta.pca_pre_method}" : null, meta.pca_pre && meta.pca_pre_batch_size != null ? "--pca-pre-batch-size ${meta.pca_pre_batch_size}" : null, meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null, meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null, meta.screen_params ? "--screen_params" : null, meta.screen_values1 ? meta.screen_values1.collect { spec -> "--screen_values1 ${spec}" }.join(" ") : null, meta.screen_values2 ? meta.screen_values2.collect { spec -> "--screen_values2 ${spec}" }.join(" ") : null, meta.screen_range1 ? meta.screen_range1.collect { spec -> "--screen_range1 ${spec}" }.join(" ") : null, meta.screen_range2 ? meta.screen_range2.collect { spec -> "--screen_range2 ${spec}" }.join(" ") : null, meta.screen_grid ? "--screen_grid ${meta.screen_grid}" : null].findAll { argument -> argument }.join(" ")
+  // --verbose is passed only when the sample sets verbose.
+  // --dr-on-failure is passed only for abort; continue is the CLI default.
+  // rDNA database paths are passed only when set. The workflow fills
+  // meta.rdna_db_dir from the sample or from --rdna_db_dir before this runs.
+  def sample_args = [meta.tiara ? "--tiara" : null, meta.verbose ? "--verbose" : null, meta.rdna ? "--rDNA" : null, meta.rdna && meta.rdna_platform ? "--rdna-platform ${meta.rdna_platform}" : null, meta.rdna && meta.rdna_db_dir ? "--rdna-db-dir '${meta.rdna_db_dir}'" : null, meta.rdna && meta.rdna_rfam_db ? "--rdna-rfam-db '${meta.rdna_rfam_db}'" : null, meta.rdna && meta.rdna_pr2_db ? "--rdna-pr2-db '${meta.rdna_pr2_db}'" : null, meta.rdna && meta.rdna_silva_db ? "--rdna-silva-db '${meta.rdna_silva_db}'" : null, meta.dr_project ? "--dr ${meta.dr_project.join(',')}" : null, "--scale ${meta.scale}", "--norm ${meta.norm}", "--dims ${meta.dims}", meta.pca_pre ? "--pca-pre" : null, meta.pca_pre && meta.pca_pre_method ? "--pca-pre-method ${meta.pca_pre_method}" : null, meta.pca_pre && meta.pca_pre_batch_size != null ? "--pca-pre-batch-size ${meta.pca_pre_batch_size}" : null, meta.keep_pcs != null ? "--keep-pcs ${meta.keep_pcs}" : null, meta.keep_variance != null ? "--keep-variance ${meta.keep_variance}" : null, meta.screen_params ? "--screen_params" : null, meta.screen_values1 ? meta.screen_values1.collect { spec -> "--screen_values1 ${spec}" }.join(" ") : null, meta.screen_values2 ? meta.screen_values2.collect { spec -> "--screen_values2 ${spec}" }.join(" ") : null, meta.screen_range1 ? meta.screen_range1.collect { spec -> "--screen_range1 ${spec}" }.join(" ") : null, meta.screen_range2 ? meta.screen_range2.collect { spec -> "--screen_range2 ${spec}" }.join(" ") : null, meta.screen_grid ? "--screen_grid ${meta.screen_grid}" : null, meta.dr_on_failure == "abort" ? "--dr-on-failure abort" : null].findAll { argument -> argument }.join(" ")
 
   """
     export HOME=\$PWD

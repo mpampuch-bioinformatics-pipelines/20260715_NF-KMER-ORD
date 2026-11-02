@@ -5,7 +5,7 @@ process KMER_ORD_VISUALISE {
 
   conda "${moduleDir}/environment.yml"
   container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20260924.RAM-efficient-fork.v7.sif'
+    ? '/ibex/project/c2303/20260614_make-kmer-ord-singularity-container/kmer-ord.linux.amd64.potentiallyWorking.needsTesting.20261029.RAM-efficient-fork.v14.sif'
     : 'docker://PLACEHOLDER_DOCKER_IMAGE'}"
 
   input:

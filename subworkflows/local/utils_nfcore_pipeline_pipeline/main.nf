@@ -83,6 +83,22 @@ workflow PIPELINE_INITIALISATION {
             if (meta.keep_pcs != null && meta.keep_variance != null) {
                 error("Samplesheet error [${meta.id}]: keep_pcs and keep_variance are mutually exclusive.")
             }
+            // kmer-ord rejects --pca-pre unless one of these is set, and only
+            // notices after k-mer counting. Fail here so the samplesheet is the error.
+            if (meta.pca_pre && meta.keep_pcs == null && meta.keep_variance == null) {
+                error("Samplesheet error [${meta.id}]: pca_pre requires keep_pcs or keep_variance.")
+            }
+            def rdna_db_fields = [
+                rdna_db_dir: meta.rdna_db_dir,
+                rdna_rfam_db: meta.rdna_rfam_db,
+                rdna_pr2_db: meta.rdna_pr2_db,
+                rdna_silva_db: meta.rdna_silva_db,
+            ].findAll { _name, value -> value }
+            if (!meta.rdna && rdna_db_fields) {
+                def rdna_db_names = rdna_db_fields.keySet().join(', ')
+                def rdna_db_verb = rdna_db_fields.size() == 1 ? "applies" : "apply"
+                error("Samplesheet error [${meta.id}]: ${rdna_db_names} ${rdna_db_verb} only when rdna is true.")
+            }
 
             // Each k-mer is an independent run; remove the original list so task
             // metadata describes only the concrete run represented by the tuple.

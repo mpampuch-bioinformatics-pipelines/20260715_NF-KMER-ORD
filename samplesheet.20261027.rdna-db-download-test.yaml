@@ -1,0 +1,10 @@
+# Small projection used only to exercise kmer-ord rdna-db install.
+# The database path comes from params.20261027.rdna-db-download-test.yaml,
+# which points at a directory that does not yet contain rfam/, pr2/, and silva/.
+- id: rdna_db_download_test
+  reads: /ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta
+  kmers: [6]
+  dr_project:
+    - pca
+  rdna: true
+  rdna_platform: pacbio

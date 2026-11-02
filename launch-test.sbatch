@@ -29,7 +29,7 @@ export NXF_WORK=/ibex/scratch/projects/c2303/work
 
 # Put in your file paths
 # E.g.
-INPUT_FILE="samplesheet.test.csv"
+INPUT_FILE="/ibex/scratch/projects/c2303/20260715_NF-KMER-ORD/samplesheet.test.20260928.hyperparams.yaml"
 CONFIG_FILE="nextflow.config"
 NXF_OUTPUT_DIR="TESTS/TEST_OUTPUTS/$(date -Iseconds | sed 's/-//g; s/://g; s/T/_/; s/+.*//')"
 NXF_LOG_FILE="$NXF_OUTPUT_DIR/nextflow.log"

@@ -1,0 +1,10 @@
+- id: 1percent
+  reads: /ibex/project/c2303/20260715_NF-KMER-ORD/TESTS/TEST_DATA/63_Monoraphidiumcircinale.hifi_reads.subsampled.1percent.fasta
+  kmers: [4]
+  tiara: false
+  rdna: false
+  dr_project:
+    - umap
+  screen_params: true
+
+
